@@ -26,10 +26,10 @@ Config { font = "Terminus 12"
                     , Run Memory ["-t","<fn=1>\xf538</fn> <usedratio>%"] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-		    , Run Com "pamixer" ["--get-volume"] "vol" 10
-		    , Run Volume "default" "Master" ["-t", "<fn=1>\xf028</fn> <volume>% <status>", "--", "-C", "#49aa49"] 10
+            , Run Com "pamixer" ["--get-volume"] "vol" 10
+            , Run Volume "default" "Master" ["-t", "<fn=1>\xf028</fn> <volume>% <status>", "--", "-C", "#49aa49"] 10
             , Run Com "/bin/sh" ["-c","~/.xmonad/spotify.sh"] "music" 50
-		    , Run Battery        [ "-t" , "<fn=1>\xf240</fn> <acstatus>"
+            , Run Battery        [ "-t" , "<fn=1>\xf240</fn> <acstatus>"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
                              , "--low"      , "darkred"
@@ -38,13 +38,13 @@ Config { font = "Terminus 12"
 
                              , "--" -- battery specific options
                                        -- discharging status
-                                       , "-o"	, "<left>%"
+                                       , "-o", "<left>%"
                                        -- AC "on" status
-                                       , "-O"	, "<fc=#dAA520>Charging</fc>"
+                                       , "-O", "<fc=#dAA520>Charging</fc>"
                                        -- charged status
-                                       , "-i"	, "<fc=#006000>Charged</fc>"
+                                       , "-i", "<fc=#006000>Charged</fc>"
                              ] 50
-		    , Run StdinReader
+            , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"

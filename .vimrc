@@ -1,7 +1,7 @@
 syntax on
 
 if !has('nvim')
-	set ttymouse=xterm2
+    set ttymouse=xterm2
 endif
 
 set mouse+=a

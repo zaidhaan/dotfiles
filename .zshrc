@@ -38,12 +38,12 @@ function bgnotify_formatted {
 HISTORY_START_WITH_GLOBAL=true
 
 plugins=(
-	git
-	zsh-completions
-	zsh-syntax-highlighting
-	zsh-autosuggestions
+    git
+    zsh-completions
+    zsh-syntax-highlighting
+    zsh-autosuggestions
     autojump
-	archlinux
+    archlinux
     nvm
     bgnotify
     per-directory-history
@@ -295,10 +295,10 @@ wrun() {
 }
 
 lsbin () {
-	pacman -Ql "$1" | awk '/bin.*[^\/]$/ {print $2}' | xargs -n1 basename | while read file
-	do
-		which "$file" > /dev/null && echo "$file" || :
-	done
+    pacman -Ql "$1" | awk '/bin.*[^\/]$/ {print $2}' | xargs -n1 basename | while read file
+    do
+        which "$file" > /dev/null && echo "$file" || :
+    done
 }
 
 _lsbin(){

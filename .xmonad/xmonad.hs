@@ -383,9 +383,9 @@ myEventHook = mempty
 
 -- startup hook
 myStartupHook = do
-	spawnOnce "nitrogen --restore &"
-	spawnOnce "picom --experimental-backends &"
-	setWMName "LG3D"
+    spawnOnce "nitrogen --restore &"
+    spawnOnce "picom --experimental-backends &"
+    setWMName "LG3D"
 
 -- run xmonad
 main :: IO ()
