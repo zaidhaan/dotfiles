@@ -364,6 +364,7 @@ zstyle ':completion:*:*:cdr:*:*' menu selection
 # makes these take effect. so these cannot conflict with command names
 hash -d dev="$HOME/dev"
 hash -d repos="$HOME/dev/repos"
+hash -d omzplugins="$ZSH/custom/plugins"
 
 #: }}}
 
