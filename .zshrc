@@ -234,6 +234,7 @@ bindkey '^[e^Is' _sort-by-size
 unsetopt promptsp # i forgot what this does lol
 unsetopt histverify # no verification after history expansion
 setopt histignorespace # dont add to history if beginning with space
+setopt cdablevars # if cd arg is not a dir, try to expand with tile
 
 #: }}}
 
@@ -354,6 +355,15 @@ zstyle ':completion:*:manuals.(^1*)' insert-sections true
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 zstyle ':completion:*:*:cdr:*:*' menu selection
+
+#: }}}
+
+#: Hashing {{{
+
+# NOTE: careful, since with CDABLE_VARS, this means simply typing a hashed dir name alone
+# makes these take effect. so these cannot conflict with command names
+hash -d dev="$HOME/dev"
+hash -d repos="$HOME/dev/repos"
 
 #: }}}
 
