@@ -111,7 +111,7 @@ treeselectAction a = TS.treeselectAction a
        , Node (TS.TSNode "Keychron K2" "DC:2C:26:28:5B:1E" (spawn "bluetoothctl connect DC:2C:26:28:5B:1E"))  []
        ]
    , Node (TS.TSNode "+ Misc" "Miscellaneous things" (return ()))
-       [ Node (TS.TSNode "Refresh OWO domains" "Update ~/.owodomains listing" (spawn "~/.xmonad/scripts/owo-refresh.sh")) []
+       [ Node (TS.TSNode "Refresh OWO domains" "Update ~/.owodomains listing" (spawn "${XDG_CONFIG_HOME:-$HOME/.config}/xmonad/scripts/owo-refresh.sh")) []
        ]
    ]
 
@@ -253,7 +253,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_l     ), spawn "dm-tool lock")
 
     -- config editor
-    , ((modm .|. shiftMask, xK_e     ), spawn "~/.xmonad/scripts/dm-confedit.sh")
+    , ((modm .|. shiftMask, xK_e     ), spawn "${XDG_CONFIG_HOME:-$HOME/.config}/xmonad/scripts/dm-confedit.sh")
 
     -- tree select
     , ((modm .|. shiftMask, xK_r ), treeselectAction tsDefaultConfig)
@@ -321,7 +321,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm                , xK_q     ), spawn "xmonad --restart")
 
     -- show help messagae with key bindings info
-    , ((modm .|. shiftMask, xK_slash ), spawn ("~/.xmonad/scripts/show-keys.sh | dzen2"))
+    , ((modm .|. shiftMask, xK_slash ), spawn ("${XDG_CONFIG_HOME:-$HOME/.config}/xmonad/scripts/show-keys.sh | dzen2"))
 
     -- move cursor to currently focused window
     , ((modm,   xK_z     ), warpToWindow (1%2) (1%2))
@@ -387,6 +387,7 @@ myEventHook = mempty
 -- startup hook
 myStartupHook = do
     spawnOnce "nitrogen --restore &"
+    spawnOnce "xbindkeys -f $XDG_CONFIG_HOME/xbindkeys/config"
     spawnOnce "picom --experimental-backends &"
     setWMName "LG3D"
 
