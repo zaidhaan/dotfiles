@@ -1,0 +1,13 @@
+export $(envsubst < .env)
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+
+PS1='[\u@\h \W]\$ '
+
+# probably should be XDG_STATE_HOME, but who cares
+export HISTFILE=$XDG_CONFIG_HOME/bash/history
+
+[ -r $HOME/.byobu/prompt ] && . $HOME/.byobu/prompt
