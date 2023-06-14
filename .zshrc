@@ -79,6 +79,9 @@ bindkey '^R' history-incremental-pattern-search-backward # originally: history-i
 bindkey '^]' vi-find-next-char
 bindkey '^[^]' vi-find-prev-char
 
+# file navigation
+bindkey '^Xm' _most_recent_file
+
 # reverse menu complete (shift+tab equivalent)
 # ctrl+shift+I, from `showkey -a`. probably not portable
 bindkey -M menuselect '^[[105;6u' reverse-menu-complete
@@ -333,7 +336,6 @@ autoload zmv
 #: Completion {{{
 
 # list only .{7z,zip} files for 7z and sort by date (newest first)
-# note to self: "^Xm" _most_recent_file is also *useful*
 zstyle ':completion:*:7z:*' file-patterns '*.(7z|zip)(.)'
 zstyle ':completion:*:*:7z:*' file-sort date
 
