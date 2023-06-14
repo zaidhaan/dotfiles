@@ -1,0 +1,54 @@
+Config { font = "Terminus 12"
+       , additionalFonts = [ "Font Awesome 6 Free Solid 10" ]
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "black"
+       , fgColor = "#949494"
+       , alpha = 155
+       , position = Top
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run DynNetwork ["-t", "<fn=1>\xf1eb</fn> <rx>KB|<tx>KB",
+                                      "-L","1000",
+                                      "-H","5000",
+                                      "--normal","darkorange",
+                                      "--high","red"
+                                      ] 10
+                    , Run Cpu ["-t", "<fn=1>\xf2db</fn> <total>%", "-L","3","-H","50",
+                               "--normal","green","--high","red"] 10
+                    , Run Memory ["-t","<fn=1>\xf538</fn> <usedratio>%"] 10
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+            , Run Com "pamixer" ["--get-volume"] "vol" 10
+            , Run Volume "default" "Master" ["-t", "<fn=1>\xf028</fn> <volume>% <status>", "--", "-C", "#49aa49"] 10
+            , Run Com "/bin/sh" ["-c","${XDG_CONFIG_HOME:-$HOME/.config}/xmonad/scripts/spotify.sh"] "music" 50
+            , Run Battery        [ "-t" , "<fn=1>\xf240</fn> <acstatus>"
+                             , "--Low"      , "10"        -- units: %
+                             , "--High"     , "80"        -- units: %
+                             , "--low"      , "darkred"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "#429942"
+
+                             , "--" -- battery specific options
+                                       -- discharging status
+                                       , "-o", "<left>%"
+                                       -- AC "on" status
+                                       , "-O", "<fc=#dAA520>Charging</fc>"
+                                       -- charged status
+                                       , "-i", "<fc=#006000>Charged</fc>"
+                             ] 50
+            , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%cpu%  |  %memory%  |  %dynnetwork%  | %default:Master% |  %battery%}%StdinReader%\
+                    \{ <fc=#aa00ff>%music%</fc> <fc=#23405c>|</fc> <fc=#4d8bc9>%date%</fc>  <fc=#23405c>|</fc> <fc=#3c6d9d>%uname%</fc>"
+       }
+

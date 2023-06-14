@@ -237,7 +237,7 @@ alias ip='ip -color=auto'
 alias gswp='git switch -'
 alias ghcs="sr -browser=firefox github -type=code"
 alias gddp="git diff HEAD^! | delta"
-alias config="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias config="git --git-dir=$HOME/.dotfiles --work-tree=$XDG_CONFIG_HOME"
 # config config status.showUntrackedFiles no
 
 [ "$TERM" = "xterm-kitty" ] && {
