@@ -3,58 +3,14 @@
 set -euo pipefail
 
 export OWO_DOMAIN="REPLACE_ME"
+export OWO_DOMAINS="$HOME/.owodomains"
 
-domains=(
-    'owo.whats-th.is'
-    'awau.moe'
-    'bad-me.me'
-    'chito.ge'
-    'cumz.one'
-    'discord.coffee'
-    'fk.ci'
-    'i-hate.dabbot.org'
-    'i-make-memes-with.photobox.pw'
-    'i-was-scammed-by.dabbot.org'
-    'is-fi.re'
-    'o.lol-sa.me'
-    'owo.foundation'
-    'pantsu.review'
-    'pls-fuck.me'
-    'quak.ovh'
-    'ram-ranch-really.rocks'
-    'totally-not.a-sketchy.site'
-    'uwu.foundation'
-    'uwu.whats-th.is'
-    'wolfgirl.party'
-    '*.are-la.me'
-    '*.are-pretty.sexy'
-    '*.are-really.cool'
-    '*.bad-me.me'
-    '*.banned.today'
-    '*.cumz.one'
-    '*.get-some.help'
-    '*.girlsare.life'
-    '*.is-a-bad-waifu.com'
-    '*.is-a-good-waifu.com'
-    '*.is-a-professional-domain.com'
-    '*.is-bad.com'
-    '*.is-fi.re'
-    '*.is-into.men'
-    '*.is-la.me'
-    '*.is-pretty.cool'
-    '*.is-pretty.sexy'
-    '*.is-serious.business'
-    '*.is-very.moe'
-    '*.might-be-super.fun'
-    '*.my-ey.es'
-    '*.needs-to-s.top'
-    '*.owo.foundation'
-    '*.pls-fuck.me'
-    '*.ratelimited.today'
-    '*.should-be.legal'
-    '*.uwu.foundation'
-    '*.work-for-an.agency'
-)
+if [[ -f $OWO_DOMAINS ]]; then
+    # need to do a Schwartzian transform to put wildcards at the end
+    readarray -t domains < <(cat $OWO_DOMAINS | sed 's/^*/zzz/' | LC_ALL=C sort | sed 's/^zzz/*/')
+else
+    domains=('owo.whats-th.is' 'awau.moe')
+fi
 
 SELECTION_PROMPT='Select a URL: '
 INPUT_PROMPT='Enter a subdomain: '

@@ -110,6 +110,9 @@ treeselectAction a = TS.treeselectAction a
        [ Node (TS.TSNode "JBL TUNE600BTNC" "30:C0:1B:EA:25:92" (spawn "bluetoothctl connect 30:C0:1B:EA:25:92")) []
        , Node (TS.TSNode "Keychron K2" "DC:2C:26:28:5B:1E" (spawn "bluetoothctl connect DC:2C:26:28:5B:1E"))  []
        ]
+   , Node (TS.TSNode "+ Misc" "Miscellaneous things" (return ()))
+       [ Node (TS.TSNode "Refresh OWO domains" "Update ~/.owodomains listing" (spawn "~/.xmonad/scripts/owo-refresh.sh")) []
+       ]
    ]
 
 myTreeNavigation = M.fromList
