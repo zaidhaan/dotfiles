@@ -203,12 +203,6 @@ compdef -K _history_complete_word _history-complete-newer menu-select '\e,'
 
 bindkey '^\' accept-and-hold
 
-# Restore normal backward history search overriden by fzf
-bindkey '^R' history-incremental-pattern-search-backward
-
-# Re-bind fzf backward history search (overrides _read_comp)
-bindkey '^X^R' fzf-history-widget
-
 _sort-by-modified() {
     zstyle ':completion:*' file-sort date
     zle glob-menu-complete
@@ -370,9 +364,16 @@ hash -d omzplugins="$ZSH/custom/plugins"
 
 #: Sourcing {{{
 
-# Fzf
+#: Fzf {{{
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
+
+# Restore normal backward history search overriden by fzf
+bindkey '^R' history-incremental-pattern-search-backward
+
+# Re-bind fzf backward history search (overrides _read_comp)
+bindkey '^X^R' fzf-history-widget
+#: }}}
 
 # no 'builtin' in `builtin cd -- foo/bar` for aesthetic purposes
 source <(which fzf-cd-widget | sed 's/builtin //')
