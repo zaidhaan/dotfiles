@@ -250,7 +250,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_l     ), spawn "dm-tool lock")
 
     -- config editor
-    , ((modm .|. shiftMask, xK_e     ), spawn "~/.xmonad/dm-confedit.sh")
+    , ((modm .|. shiftMask, xK_e     ), spawn "~/.xmonad/scripts/dm-confedit.sh")
 
     -- tree select
     , ((modm .|. shiftMask, xK_r ), treeselectAction tsDefaultConfig)
@@ -318,7 +318,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm                , xK_q     ), spawn "xmonad --restart")
 
     -- show help messagae with key bindings info
-    , ((modm .|. shiftMask, xK_slash ), spawn ("~/.xmonad/show-keys.sh | dzen2"))
+    , ((modm .|. shiftMask, xK_slash ), spawn ("~/.xmonad/scripts/show-keys.sh | dzen2"))
 
     -- move cursor to currently focused window
     , ((modm,   xK_z     ), warpToWindow (1%2) (1%2))

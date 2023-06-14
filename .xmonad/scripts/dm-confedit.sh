@@ -8,7 +8,7 @@ TMP_OUT=$(mktemp -t dm-confedit.XXXXXXXX) || exit 1
 TMP_OUT2=$(mktemp -t dm-confedit.XXXXXXXX) || exit 1
 
 DMENU="dmenu -i -l 20 -p"
-FMENU="$CONF_TERM $HOME/.xmonad/run-fzf.sh $TMP_OUT $TMP_OUT2"
+FMENU="$CONF_TERM $HOME/.xmonad/scripts/run-fzf.sh $TMP_OUT $TMP_OUT2"
 
 CONF_MENU="$DMENU"
 
@@ -28,7 +28,7 @@ vimrc [.vimrc]=$HOME/.vimrc
 nvim [init.vim]=$HOME/.config/nvim/init.vim
 picom=$HOME/.config/picom/picom.conf
 dunst=$HOME/.config/dunst/dunstrc
-dm-confedit=$HOME/.xmonad/dm-confedit.sh
+dm-confedit=$HOME/.xmonad/scripts/dm-confedit.sh
 ranger=$HOME/.config/ranger/rc.conf
 tmux=$HOME/.tmux.conf
 EOF

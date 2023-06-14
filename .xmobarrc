@@ -28,7 +28,7 @@ Config { font = "Terminus 12"
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
             , Run Com "pamixer" ["--get-volume"] "vol" 10
             , Run Volume "default" "Master" ["-t", "<fn=1>\xf028</fn> <volume>% <status>", "--", "-C", "#49aa49"] 10
-            , Run Com "/bin/sh" ["-c","~/.xmonad/spotify.sh"] "music" 50
+            , Run Com "/bin/sh" ["-c","~/.xmonad/scripts/spotify.sh"] "music" 50
             , Run Battery        [ "-t" , "<fn=1>\xf240</fn> <acstatus>"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
