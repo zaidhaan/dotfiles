@@ -69,5 +69,5 @@
 "xdotool click 1"
    Control+Shift+Mod4 + i
 
-"~/.xmonad/scripts/owo-upload.sh"
+"$XDG_CONFIG_HOME/xmonad/scripts/owo-upload.sh"
    Shift + Print

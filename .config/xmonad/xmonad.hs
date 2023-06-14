@@ -393,8 +393,8 @@ myStartupHook = do
 -- run xmonad
 main :: IO ()
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.xmobarrc"
-    xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.xmobarrc"
+    xmproc0 <- spawnPipe "xmobar -x 0 ${XDG_CONFIG_HOME:-$HOME/.config}/xmobar/.xmobarrc"
+    xmproc1 <- spawnPipe "xmobar -x 1 ${XDG_CONFIG_HOME:-$HOME/.config}/xmobar/.xmobarrc"
     xmonad $ ewmh $ docks defaults {
         logHook = dynamicLogWithPP $ myPP {
             ppOutput = \x -> hPutStrLn xmproc0 x
