@@ -4,4 +4,3 @@ My dotfiles. This repository is currently only meant to be used by me (so I can 
 
 ## TODO:
 - [ ] secure `.muttrc` and add
-- [ ] figure out how to deal with weechat and its gargantuan configs
