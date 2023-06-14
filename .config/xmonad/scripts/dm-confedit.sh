@@ -8,28 +8,27 @@ TMP_OUT=$(mktemp -t dm-confedit.XXXXXXXX) || exit 1
 TMP_OUT2=$(mktemp -t dm-confedit.XXXXXXXX) || exit 1
 
 DMENU="dmenu -i -l 20 -p"
-FMENU="$CONF_TERM $HOME/.xmonad/scripts/run-fzf.sh $TMP_OUT $TMP_OUT2"
+FMENU="$CONF_TERM $XDG_CONFIG_HOME/xmonad/scripts/run-fzf.sh $TMP_OUT $TMP_OUT2"
 
 CONF_MENU="$DMENU"
 
 CONF_LIST=$(cat <<EOF
 alacritty=$HOME/alacritty/alacritty.yml
 kitty=$HOME/.config/kitty/kitty.conf
-xmonad=$HOME/.xmonad/xmonad.hs
-xmobar=$HOME/.xmobarrc
+xmonad=$XDG_CONFIG_HOME/xmonad/xmonad.hs
+xmobar=$XDG_CONFIG_HOME/xmobar/.xmobarrc
 ssh=$HOME/.ssh/config
 sshd=/etc/ssh/sshd_config
 zshrc=$XDG_CONFIG_HOME/zsh/.zshrc
 zsh_history=$HOME/.zsh_history
 xbindkeys=$XDG_CONFIG_HOME/xbindkeys/config
 xinit=$HOME/.xinitrc
-vimrc [.vimrc]=$HOME/.vimrc
 nvim [init.vim]=$HOME/.config/nvim/init.vim
 picom=$HOME/.config/picom/picom.conf
 dunst=$HOME/.config/dunst/dunstrc
-dm-confedit=$HOME/.xmonad/scripts/dm-confedit.sh
+dm-confedit=$XDG_CONFIG_HOME/xmonad/scripts/dm-confedit.sh
 ranger=$HOME/.config/ranger/rc.conf
-tmux=$HOME/.tmux.conf
+tmux=$XDG_CONFIG_HOME/tmux/tmux.conf
 EOF
 )
 
