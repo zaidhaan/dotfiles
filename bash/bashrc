@@ -1,4 +1,4 @@
-export $(envsubst < .env)
+export $(envsubst < $XDG_CONFIG_HOME/.env)
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
