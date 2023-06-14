@@ -12,16 +12,6 @@ fi
 
 #: }}}
 
-#: Environment variables {{{
-
-export PATH=$PATH:$HOME/.local/bin
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-# omz template: https://github.com/ohmyzsh/ohmyzsh/blob/master/templates/zshrc.zsh-template
-export ZSH="$HOME/.oh-my-zsh"
-
-#: }}}
-
 #: Oh-my-zsh {{{
 
 zstyle ':omz:plugins:nvm' lazy yes
