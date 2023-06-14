@@ -18,7 +18,6 @@ kitty=$HOME/.config/kitty/kitty.conf
 xmonad=$HOME/.xmonad/xmonad.hs
 xmobar=$HOME/.xmobarrc
 ssh=$HOME/.ssh/config
-sshd=$HOME/.ssh/config
 sshd=/etc/ssh/sshd_config
 zshrc=$HOME/.zshrc
 zsh_history=$HOME/.zsh_history
