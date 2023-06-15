@@ -4,7 +4,9 @@ My dotfiles. This repository is currently only meant to be used by me (so I can 
 
 ## Screenshots
 
-![Dotfiles screenshot](https://i.imgur.com/GdqcQpS.png)
+![Dotfiles screenshot 1](https://i.imgur.com/GdqcQpS.png)
+
+![Dotfiles screenshot 2](https://i.imgur.com/3MruRdH.png)
 
 
 ## TODO:
