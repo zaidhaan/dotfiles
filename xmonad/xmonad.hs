@@ -14,6 +14,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.WorkspaceHistory
 import XMonad.Layout.Spacing
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.NoBorders (noBorders)
@@ -21,6 +22,8 @@ import XMonad.Layout.Spiral
 import XMonad.Actions.CycleWS
 import XMonad.Actions.Warp
 import XMonad.Actions.Submap
+import XMonad.Actions.DynamicProjects
+import XMonad.Actions.SpawnOn
 import qualified XMonad.Actions.TreeSelect as TS
 
 import Zai.Xmonad.KittySsh (kittySshPrompt)
@@ -82,9 +85,6 @@ myEditor = "nvim"
 myBar = "xmobar"
 myPP = xmobarPP { ppCurrent = xmobarColor "#4378ad" "" . wrap "[" "]" }
 
--- TODO: move to  something like ["term", "web", "code", "irc", "media"] ++ map show [6..9]
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
-
 myNormalBorderColor  = "#28303a"
 myFocusedBorderColor = "#506c90"
 
@@ -100,6 +100,65 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     w = 0.9
                     t = 0.95 -h
                     l = 0.95 -w
+
+myWorkspaces :: Forest String
+myWorkspaces = [ Node "term" []
+               , Node "web"
+                   [ Node "private" [] -- firefox private window
+                   , Node "chat"    []
+                   , Node "email"   [] -- neomutt
+                   , Node "irc"   [] -- weechat
+                   ]
+               , Node "code" []
+               , Node "media" [] -- spotify
+               , Node "hack" [] -- start in ~/dev/hacks
+               , Node "conf" [] -- start in ~/.config
+               , Node "misc" []
+               ]
+
+-- NOTE: kinda ugly, could probably be improved later
+projects :: [Project]
+projects =
+  [ Project { projectName      = "term"
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ do spawnOn "term" myTerminal
+            }
+
+  , Project { projectName      = "web"
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ do spawn "firefox"
+            }
+
+  , Project { projectName      = "web.private"
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ do spawn "firefox --private-window"
+            }
+
+  , Project { projectName      = "web.email"
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ do spawn $ myTerminal ++ " neomutt"
+            }
+
+  , Project { projectName      = "conf"
+            , projectDirectory = "~/.config"
+            , projectStartHook = Just $ do spawnOn "conf" myTerminal
+            }
+
+  , Project { projectName      = "media"
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ do spawnOn "media" "spotify"
+            }
+
+  , Project { projectName      = "hack"
+            , projectDirectory = "~/dev/hacks"
+            , projectStartHook = Just $ do spawnOn "hack" myTerminal
+            }
+
+  , Project { projectName      = "web.irc"
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ do spawn $ myTerminal ++ " weechat"
+            }
+  ]
 
 treeselectAction :: TS.TSConfig (X ()) -> X ()
 treeselectAction a = TS.treeselectAction a
@@ -220,6 +279,11 @@ myXPConfig' = myXPConfig
       { autoComplete        = Nothing
       }
 
+myXPConfigFuzzy :: XPConfig
+myXPConfigFuzzy = myXPConfig
+      { searchPredicate = fuzzyMatch
+      }
+
 -- key bindings
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ -- terminals
@@ -235,6 +299,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask .|. shiftMask, xK_Left ), sendMessage $ Move L)
     , ((modm .|. controlMask .|. shiftMask, xK_Up   ), sendMessage $ Move U)
     , ((modm .|. controlMask .|. shiftMask, xK_Down ), sendMessage $ Move D)
+
+    -- experimental
+    , ((modm .|. shiftMask,   xK_w), TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.greedyView)
+    , ((modm .|. controlMask, xK_w), TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.shift)
+    , ((modm,                 xK_f), switchProjectPrompt myXPConfigFuzzy)
+    , ((modm .|. shiftMask,   xK_f), shiftToProjectPrompt myXPConfigFuzzy)
 
     -- prompts
     , ((modm.|. shiftMask, xK_p), submap . M.fromList $
@@ -323,6 +393,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- show help messagae with key bindings info
     , ((modm .|. shiftMask, xK_slash ), spawn ("$XDG_CONFIG_HOME/xmonad/scripts/show-keys.sh | dzen2"))
+    --, ((modm .|. shiftMask, xK_slash ), spawn ("$XDG_CONFIG_HOME/xmonad/scripts/show-keys.sh | dzen2"))
 
     -- move cursor to currently focused window
     , ((modm,   xK_z     ), warpToWindow (1%2) (1%2))
@@ -398,7 +469,7 @@ main :: IO ()
 main = do
     xmproc0 <- spawnPipe "xmobar -x 0 $XDG_CONFIG_HOME/xmobar/.xmobarrc"
     xmproc1 <- spawnPipe "xmobar -x 1 $XDG_CONFIG_HOME/xmobar/.xmobarrc"
-    xmonad $ ewmh $ docks defaults {
+    xmonad $ dynamicProjects projects $ ewmh $ docks defaults {
         logHook = dynamicLogWithPP $ myPP {
             ppOutput = \x -> hPutStrLn xmproc0 x
                       >> hPutStrLn xmproc1 x,
@@ -413,7 +484,7 @@ defaults = def {
         clickJustFocuses   = myClickJustFocuses,
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
-        workspaces         = myWorkspaces,
+        workspaces         = TS.toWorkspaces myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
 
@@ -425,6 +496,6 @@ defaults = def {
         layoutHook         = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = return (),-- myLogHook,
+        logHook            = return (),
         startupHook        = myStartupHook
     }
