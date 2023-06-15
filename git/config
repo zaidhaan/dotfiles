@@ -5,10 +5,10 @@
     path = config.local
 
 [init]
-	defaultBranch = master
+    defaultBranch = master
 
 [pager]
-	branch = false
+    branch = false
 
 [alias]
     # e.g. M file.txt
@@ -60,29 +60,29 @@
 
     # TODO: figure out how to properly autocomplete this
     # find branches containing commit
-	fb = "!f() { : git show ; git branch -a --contains $1; }; f"
+    fb = "!f() { : git show ; git branch -a --contains $1; }; f"
 
-	# find tags containing commit
-	ft = "!f() { git describe --always --contains $1; }; f"
+    # find tags containing commit
+    ft = "!f() { git describe --always --contains $1; }; f"
 
-	# find commits by source code
-	fc = "!f() { git log --pretty=serious --decorate --date=short -S$1; }; f"
+    # find commits by source code
+    fc = "!f() { git log --pretty=serious --decorate --date=short -S$1; }; f"
 
-	# find commits by commit message
-	fm = "!f() { git log --pretty=serious --decorate --date=short --grep=$1; }; f"
+    # find commits by commit message
+    fm = "!f() { git log --pretty=serious --decorate --date=short --grep=$1; }; f"
 
     # Remove branches that have already been merged with master (a.k.a. "delete merged")
-	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d; git remote -v update -p"
+    dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d; git remote -v update -p"
 
     # diff | delta
     # unstaged
-	dd = !"f() { git diff $@ | delta; }; f"
+    dd = !"f() { git diff $@ | delta; }; f"
     # staged
-	ddc = !"f() { git diff --cached $@ | delta; }; f"
+    ddc = !"f() { git diff --cached $@ | delta; }; f"
     # cmp curr with prev commit
-	ddp = !" git diff HEAD^! | delta"
+    ddp = !" git diff HEAD^! | delta"
 
-	pushall = !" git remote | xargs -L1 git push --all"
+    pushall = !" git remote | xargs -L1 git push --all"
 
     sl = shortlog
     sls = shortlog --summary --numbered
@@ -98,22 +98,22 @@
     alias=! git config -l | grep ^alias | cut -c 7- | sort
 
 [core]
-	pager = less -F -X
+    pager = less -F -X
 
 [pretty]
     # more emphasis on commit message
     sexy = "format:%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset"
 
     # more emphasis on commit hash and date
-    serious = "format:%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d"
+    serious = "format:%C(yellow)%h    %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d"
 
 [url "git@github.com:"]
-	pushInsteadOf = "https://github.com/"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
+    pushInsteadOf = "https://github.com/"
+    pushInsteadOf = "github:"
+    pushInsteadOf = "git://github.com/"
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
