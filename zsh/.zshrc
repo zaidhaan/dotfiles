@@ -305,8 +305,7 @@ hgrep() {
 }
 
 gls() {
-    local DEFAULT_PRETTY_FORMAT="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset"
-    PAGER="less -p $1" git log --grep="$1" --pretty="$DEFAULT_PRETTY_FORMAT"
+    GIT_PAGER="less -p $1" git log --grep="$1" --pretty=sexy
 }
 
 gdd() {
