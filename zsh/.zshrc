@@ -372,6 +372,8 @@ source <(which fzf-cd-widget | sed 's/builtin //')
 
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
+source $XDG_CONFIG_HOME/zsh/scripts.zsh
+
 eval "$(github-copilot-cli alias -- "$0")"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

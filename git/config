@@ -30,6 +30,9 @@
     # shallow clone
     sc = clone --depth=1
 
+    # use tmux to view diff on left and commit on right
+    adhd = "!f() { source $XDG_CONFIG_HOME/zsh/scripts.zsh ; gitadhd $GIT_DIR $GIT_WORK_TREE; }; f"
+
     # add
     a = add
     # pull remote + submodules
