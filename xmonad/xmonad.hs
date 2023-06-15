@@ -375,6 +375,7 @@ myLayout = avoidStruts $
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , className =? "Xmessage"       --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     ] <+> namedScratchpadManageHook myScratchPads
