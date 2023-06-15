@@ -22,10 +22,10 @@ function gitadhd() {
     if [ "$SESSIONEXISTS" = "" ]; then
         tmux new-session -d -s $SESSION
 
-        tmux send-keys -t 0 "git diff --cached | delta && exit" C-m
+        tmux send-keys -t 0 "git diff --cached | delta" C-m
         tmux split-window -h
         tmux select-pane -t 1
-        tmux send-keys -t 1 "git commit && exit" C-m
+        tmux send-keys -t 1 "git commit && tmux kill-session -t Git-ADHD" C-m
 
     fi
 
