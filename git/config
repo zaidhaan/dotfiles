@@ -27,6 +27,9 @@
     # clone + recurse submodules
     c = clone --recursive
 
+    # back / switch
+    b = switch -
+
     # shallow clone
     sc = clone --depth=1
 
