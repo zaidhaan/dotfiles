@@ -38,9 +38,3 @@ gls() {
     GIT_PAGER="less -p $1" git log --grep="$1" --pretty=sexy
 }
 
-gdd() {
-    git diff "$@" | delta
-}
-_git &>/dev/null # initiate to expose _git-* completions
-compdef _git-diff gdd
-

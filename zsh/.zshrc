@@ -1,6 +1,5 @@
 # vim:fileencoding=utf-8:foldmethod=marker:foldlevel=0
 
-# Profiling .zshrc with `zprof`
 # zmodload zsh/zprof
 
 # powerlevel10k instant prompt (should be high up for speed)
