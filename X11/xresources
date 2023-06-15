@@ -1,1 +1,56 @@
- Xmessage*Font: -xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso8859-2
+Xmessage*Font: -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+Xmessage*background: #3F3F3F
+Xmessage*foreground: #F0DFAF
+Xmessage*form.*.shapeStyle: rectangle
+Xmessage*Scrollbar.width: 1
+Xmessage*Scrollbar.borderWidth: 0
+Xmessage.form.message.Scroll: WhenNeeded
+!Xmessage*Buttons: Quit
+!Xmessage*defaultButton: Quit
+Xmessage*geometry: +80+25
+
+Xft.autohint:  0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting:   1
+Xft.antialias: 1
+Xft.rgba:      rgb
+Xft.dpi:       96
+
+xterm*internalBorder:        0
+xterm*loginShell:         true
+xterm*scrollBar:         false
+xterm*cursorBlink:       false
+!xterm*geometry:         80x26
+xterm*saveLines:         65535
+xterm*dynamicColors:        on
+xterm*highlightSelection: true
+! Appearance
+xterm*utf8:            2
+xterm*eightBitInput:   true
+xterm*metaSendsEscape: true
+XTerm*font:        xft:JetBrains Mono Regular Nerd Font Complete:size=14
+xterm*faceName:    JetBrains Mono Regular Nerd Font Complete:pixelsize=14
+xterm*cursorColor: #DCDCCC
+
+*.foreground:   #c5c8c6
+*.background:   #101213
+*.cursorColor:  #c5c8c6
+
+! from kitty theme
+*.color0: #090200
+*.color8: #5b5754
+*.color1: #da2c20
+*.color9: #e8bacf
+*.color2: #00a152
+*.color10: #b9ca4a
+*.color3: #fcec02
+*.color11: #494542
+*.color4: #00a0e4
+*.color12: #7aa6da
+*.color5: #a06994
+*.color13: #d6d4d3
+*.color6: #b5e4f4
+*.color14: #ccab53
+*.color7: #a4a1a1
+*.color15: #f7f7f7
