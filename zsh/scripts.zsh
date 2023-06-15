@@ -1,5 +1,4 @@
 function gitadhd() {
-    EXTRA_OPTS=""
     if [ $# -eq 2 ]; then
         if git --git-dir=$1 --work-tree=$2 diff --cached --quiet; then
             echo "No staged changes to commit"
