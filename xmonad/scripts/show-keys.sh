@@ -10,7 +10,7 @@ commentCol=slateblue
 keyCol=green2
 XCol=orange3
 ( echo "   ^fg($titleCol) ----------- keys -----------^fg()";
-  sed -n '/^myKeys/,/^--/p' ~/.xmonad/xmonad.hs \
+  sed -n '/^myKeys/,/^--/p' $XDG_CONFIG_HOME/xmonad/xmonad.hs \
     | grep -E 'xK_|eys' \
     | sed -e 's/\( *--\)\(.*eys*\)/\1^fg('$commentCol')\2^fg()/' \
           -e 's/((\(.*xK_.*\)), *\(.*\))/^fg('$keyCol')\1^fg(), ^fg('$XCol')\2^fg()/'
