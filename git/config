@@ -30,6 +30,8 @@
     # shallow clone
     sc = clone --depth=1
 
+    # add
+    a = add
     # pull remote + submodules
     p = ! git pull ; git submodule foreach git pull origin master
 
@@ -38,6 +40,7 @@
 
     # minor changes
     recommit = commit --amend --no-edit
+    update = commit --amend --no-edit
 
     # staged changes
     staged = diff --cached
@@ -62,6 +65,14 @@
 
     # Remove branches that have already been merged with master (a.k.a. "delete merged")
 	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d; git remote -v update -p"
+
+    # diff | delta
+    # unstaged
+	dd = !"f() { git diff $@ | delta; }; f"
+    # staged
+	ddc = !"f() { git diff --cached $@ | delta; }; f"
+    # cmp curr with prev commit
+	ddp = !" git diff HEAD^! | delta"
 
 	pushall = !" git remote | xargs -L1 git push --all"
 
