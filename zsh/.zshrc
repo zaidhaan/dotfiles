@@ -3,11 +3,8 @@
 # Profiling .zshrc with `zprof`
 # zmodload zsh/zprof
 
-#: Prompt {{{
-if [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-#: }}}
+# powerlevel10k instant prompt (should be high up for speed)
+test -r "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh" && source $_
 
 # oh-my-zsh config, separate from third party
 # since this specifically needs to be loaded earlier
@@ -39,6 +36,6 @@ source $ZDOTDIR/thirdparty.zsh
 
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+test -r ~/.p10k.zsh && source $_
 
 # zprof
