@@ -38,6 +38,8 @@
     # pull remote + submodules
     p = ! git pull ; git submodule foreach git pull origin master
 
+    cam = commit --all -m
+
     # updating + rewording
     amend = commit --amend
 
