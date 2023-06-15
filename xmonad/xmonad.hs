@@ -103,14 +103,15 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
 
 treeselectAction :: TS.TSConfig (X ()) -> X ()
 treeselectAction a = TS.treeselectAction a
-   [ Node (TS.TSNode "Qalc"  "command line calculator"  (spawn (myTerminal ++ " qalc"))) []
-   , Node (TS.TSNode "Autorandr"  "load detected autorandr profile"  (spawn "autorandr -c")) []
-   , Node (TS.TSNode "Pavucontrol"  "volume control"  (spawn "pavucontrol")) []
-   , Node (TS.TSNode "+ Bluetooth" "Connect to a bluetooth device" (return ()))
-       [ Node (TS.TSNode "JBL TUNE600BTNC" "30:C0:1B:EA:25:92" (spawn "bluetoothctl connect 30:C0:1B:EA:25:92")) []
-       , Node (TS.TSNode "Keychron K2" "DC:2C:26:28:5B:1E" (spawn "bluetoothctl connect DC:2C:26:28:5B:1E"))  []
+   [ Node (TS.TSNode "Qalc"         "command line calculator"          (spawn (myTerminal ++ " qalc"))) []
+   , Node (TS.TSNode "Autorandr"    "load detected autorandr profile"  (spawn "autorandr -c")) []
+   , Node (TS.TSNode "Pavucontrol"  "volume control"                   (spawn "pavucontrol")) []
+   , Node (TS.TSNode "Nmtui"        "NetworkManager TUI"               (spawn (myTerminal ++ " nmtui"))) []
+   , Node (TS.TSNode "+ Bluetooth"  "Connect to a bluetooth device"    (return ()))
+       [ Node (TS.TSNode "JBL TUNE600BTNC"     "30:C0:1B:EA:25:92" (spawn "bluetoothctl connect 30:C0:1B:EA:25:92")) []
+       , Node (TS.TSNode "Keychron K2"         "DC:2C:26:28:5B:1E" (spawn "bluetoothctl connect DC:2C:26:28:5B:1E"))  []
        ]
-   , Node (TS.TSNode "+ Misc" "Miscellaneous things" (return ()))
+   , Node (TS.TSNode "+ Misc"       "Miscellaneous things"             (return ()))
        [ Node (TS.TSNode "Refresh OWO domains" "Update ~/.owodomains listing" (spawn "$XDG_CONFIG_HOME/xmonad/scripts/owo-refresh.sh")) []
        ]
    ]
