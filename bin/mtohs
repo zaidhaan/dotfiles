@@ -1,0 +1,14 @@
+#!/usr/bin/env -S perl -l
+
+use strict;
+use warnings;
+
+use Time::Piece;
+use Time::Seconds;
+
+my $start = localtime;
+my $end = $start + ($ARGV[0] // 0);
+
+my $duration = ($end - $start)->pretty;
+print $duration;
+

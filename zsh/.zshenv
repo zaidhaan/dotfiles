@@ -1,4 +1,5 @@
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
