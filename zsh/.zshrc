@@ -21,9 +21,6 @@ source $ZDOTDIR/aliases.zsh
 # interactive session functions
 source $ZDOTDIR/functions.zsh
 
-# functions potentially loadable by scripts
-source $ZDOTDIR/scripts.zsh
-
 # completion configuration
 source $ZDOTDIR/completion.zsh
 
