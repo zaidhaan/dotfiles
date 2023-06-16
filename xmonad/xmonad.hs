@@ -431,6 +431,7 @@ myLayout = avoidStruts $
         named "Tall" (spacingRaw False screenBorder True windowBorder True $ ResizableTall noMasters delta masterRatio [])
     ||| named "Full" (noBorders Full)
     ||| named "Spiral" (spacingRaw False screenBorder True windowBorder True $ spiral spiralRatio)
+    ||| named "Tabbed" (tabbed shrinkText myTabConfig)
     ||| named "Combo" (combineTwo (TwoPane delta masterRatio) (tabbed shrinkText myTabConfig) (tabbed shrinkText myTabConfig))
         where
             noMasters = 1
@@ -451,7 +452,7 @@ myLayout = avoidStruts $
 
 -- TODO: avoid duplication here
 availableLayouts :: [String]
-availableLayouts = ["Tall", "Full", "Spiral", "Combo"]
+availableLayouts = ["Tall", "Full", "Spiral", "Tabbed", "Combo"]
 
 layoutPrompt :: XPConfig -> X ()
 layoutPrompt c = do
