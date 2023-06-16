@@ -20,6 +20,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Layout.Spiral
 import XMonad.Actions.CycleWS
+import XMonad.Actions.CycleWindows
 import XMonad.Actions.Warp
 import XMonad.Actions.Submap
 import XMonad.Actions.DynamicProjects
@@ -375,8 +376,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_i  ), incScreenWindowSpacing (2))
 
     -- workspace navigation
-    , ((modm,               xK_l  ), moveTo Next (Not emptyWS))
-    , ((modm,               xK_h  ), moveTo Prev (Not emptyWS))
+    , ((modm,                     xK_l), moveTo Next (Not emptyWS))
+    , ((modm,                     xK_h), moveTo Prev (Not emptyWS))
+    , ((modm .|. controlMask, xK_space), toggleWS)
 
     -- push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
