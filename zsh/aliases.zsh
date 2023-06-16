@@ -5,6 +5,7 @@ alias java='java "$SILENT_JAVA_OPTIONS"'
 
 alias vim='nvim'
 alias incognito=" unset HISTFILE"
+alias sbcl='rlwrap sbcl'
 alias ip='ip -color=auto'
 alias ghcs="sr -browser=firefox github -type=code"
 alias config="git --git-dir=$HOME/.dotfiles --work-tree=$XDG_CONFIG_HOME"

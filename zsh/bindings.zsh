@@ -21,6 +21,9 @@ bindkey '^[^]' vi-find-prev-char
 # file navigation
 bindkey '^Xm' _most_recent_file
 
+# alias expansion
+bindkey '^Xa' _expand_alias
+
 # reverse menu complete (shift+tab equivalent)
 # ctrl+shift+I, from `showkey -a`. probably not portable
 bindkey -M menuselect '^[[105;6u' reverse-menu-complete
