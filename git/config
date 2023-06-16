@@ -89,6 +89,10 @@
 
     top = ! git log --format=format:\"%an <%ae>\" | sort | uniq -c | sort -nr | head -n 20
 
+    iw = instaweb
+    iws = instaweb stop
+
+
     # don't ask why
     yolo = ! git add -A && git commit -m \"$(curl -fsSL https://whatthecommit.com/index.txt)\"
 
@@ -106,6 +110,12 @@
 
     # more emphasis on commit hash and date
     serious = "format:%C(yellow)%h    %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d"
+
+[instaweb]
+    local = true
+
+    # just a random port nobody uses
+    port = 8180
 
 [url "git@github.com:"]
     pushInsteadOf = "https://github.com/"
