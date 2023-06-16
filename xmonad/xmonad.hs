@@ -43,7 +43,7 @@ import XMonad.Prompt.Man
 import XMonad.Prompt.Ssh
 import XMonad.Prompt.FuzzyMatch
 import XMonad.Prompt.XMonad
-import XMonad.Prompt.Layout
+import XMonad.Prompt.Workspace ( Wor(..) )
 import XMonad.Prompt.AppLauncher as AL
 import Control.Arrow (first)
 
@@ -250,6 +250,10 @@ myXPKeymap = M.fromList $
      , (xK_Escape, quit)
      ]
 
+isPrefixOf' :: String -> String -> Bool
+isPrefixOf' prefix str =
+  isPrefixOf (map toUpper prefix) (map toUpper str)
+
 myXPConfig :: XPConfig
 myXPConfig = def
       { font                = myFont
@@ -268,7 +272,7 @@ myXPConfig = def
       , autoComplete        = Just 100000  -- 100000 microseconds = 0.1 sec
       , showCompletionOnTab = False
       , complCaseSensitivity = CaseInSensitive
-      , searchPredicate     = isPrefixOf -- 'fuzzyMatch' also possible
+      , searchPredicate     = isPrefixOf' -- 'fuzzyMatch' also possible
       , defaultPrompter     = id . (++ " ") . map toUpper
       , alwaysHighlight     = True
       , maxComplRows        = Nothing      -- 'Just 5' for 5 rows
@@ -311,7 +315,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         [ ((0, xK_m),  manPrompt myXPConfig)
         , ((0, xK_s),  kittySshPrompt myXPConfig')
         , ((0, xK_x),  xmonadPrompt myXPConfig')
-        , ((0, xK_l),  layoutPrompt myXPConfig')
+        , ((0, xK_l),  layoutPrompt myXPConfig)
         ]
       )
 
@@ -421,21 +425,35 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 -- layouts
 
--- e.g.:
--- myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
---   where
---      -- default tiling algorithm partitions the screen into two panes
---      tiled   = Tall nmaster delta ratio
---      nmaster = 1 -- default no. of masters
---      ratio   = 1/2 -- default screen proportion occupied by master pane
---      delta   = 3/100 -- percent of screen to increment when resizing panes
--- myLayout = avoidStruts (Tall 1 3/100 1/2 || Mirror tiled || Full)
 myLayout = avoidStruts $
-        named "Tall" (spacingRaw False (Border 8 0 8 0) True (Border 0 8 0 8) True $ ResizableTall 1 (3/100) (1/2) [])
+        named "Tall" (spacingRaw False screenBorder True windowBorder True $ ResizableTall noMasters delta masterRatio [])
     ||| named "Full" (noBorders Full)
-    ||| named "Spiral" (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True $ spiral (6/7))
-    ||| named "Combo" (combineTwo (TwoPane 0.03 0.5) (tabbed shrinkText def) (tabbed shrinkText def))
+    ||| named "Spiral" (spacingRaw False screenBorder True windowBorder True $ spiral spiralRatio)
+    ||| named "Combo" (combineTwo (TwoPane delta masterRatio) (tabbed shrinkText myTabConfig) (tabbed shrinkText myTabConfig))
+        where
+            noMasters = 1
+            masterRatio = (1/2) -- default screen proportion occupied by master pane
+            delta = (3/100) -- percentage of screen to increment when resizing panes
+            gapSize = 8
+            spiralRatio = (6/7)
+            screenBorder = (Border gapSize 0 gapSize 0) -- <top> bottom <right> left
+            windowBorder = (Border  0 gapSize 0 gapSize) -- top <bottom> right <left>
+            myTabConfig = def { fontName            = "xft:Noto Sans:regular:pixelsize=11"
+                              , activeColor         = "#29283e"
+                              , activeBorderColor   = "#29283e"
+                              , inactiveColor       = "#3f3f5e"
+                              , inactiveBorderColor = "#29283e"
+                              , activeTextColor     = "#ffffff"
+                              , inactiveTextColor   = "#d0d0d0"
+                              }
 
+-- TODO: avoid duplication here
+availableLayouts :: [String]
+availableLayouts = ["Tall", "Full", "Spiral", "Combo"]
+
+layoutPrompt :: XPConfig -> X ()
+layoutPrompt c = do
+  mkXPrompt (Wor "") c (mkComplFunFromList' c  (availableLayouts)) (sendMessage . JumpToLayout)
 
 -- window rules
 
