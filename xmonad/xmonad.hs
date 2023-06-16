@@ -367,6 +367,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
     , ((modm .|. controlMask, xK_t), sendMessage $ JumpToLayout "Tall")
     , ((modm .|. controlMask, xK_s), sendMessage $ JumpToLayout "Spiral")
+    , ((modm .|. controlMask, xK_b), sendMessage $ JumpToLayout "Tabbed")
 
     -- scratchpads
     , ((modm,               xK_s  ), namedScratchpadAction myScratchPads "terminal")
