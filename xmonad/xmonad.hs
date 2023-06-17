@@ -432,7 +432,7 @@ myLayout = avoidStruts $
         named "Tall" (spacingRaw False screenBorder True windowBorder True $ ResizableTall noMasters delta masterRatio [])
     ||| named "Full" (noBorders Full)
     ||| named "Spiral" (spacingRaw False screenBorder True windowBorder True $ spiral spiralRatio)
-    ||| named "Tabbed" (tabbed shrinkText myTabConfig)
+    ||| named "Tabbed" (noBorders $ tabbed shrinkText myTabConfig)
     ||| named "Combo" (combineTwo (TwoPane delta masterRatio) (tabbed shrinkText myTabConfig) (tabbed shrinkText myTabConfig))
         where
             noMasters = 1
