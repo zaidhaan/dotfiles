@@ -399,8 +399,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm                , xK_q     ), spawn "xmonad --restart")
 
     -- show help messagae with key bindings info
-    , ((modm .|. shiftMask, xK_slash ), spawn ("$XDG_CONFIG_HOME/xmonad/scripts/show-keys.sh | dzen2"))
-    --, ((modm .|. shiftMask, xK_slash ), spawn ("$XDG_CONFIG_HOME/xmonad/scripts/show-keys.sh | dzen2"))
+    , ((modm .|. shiftMask, xK_slash ), spawn ("$XDG_CONFIG_HOME/xmonad/scripts/show-keys.sh"))
 
     -- move cursor to currently focused window
     , ((modm,   xK_z     ), warpToWindow (1%2) (1%2))
