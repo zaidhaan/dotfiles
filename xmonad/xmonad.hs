@@ -127,17 +127,17 @@ projects =
 
   , Project { projectName      = "web"
             , projectDirectory = "~/"
-            , projectStartHook = Just $ do spawn "firefox"
+            , projectStartHook = Just $ do spawnOn "web" "firefox"
             }
 
   , Project { projectName      = "web.private"
             , projectDirectory = "~/"
-            , projectStartHook = Just $ do spawn "firefox --private-window"
+            , projectStartHook = Just $ do spawnOn "web.private" "firefox --private-window"
             }
 
   , Project { projectName      = "web.email"
             , projectDirectory = "~/"
-            , projectStartHook = Just $ do spawn $ myTerminal ++ " neomutt"
+            , projectStartHook = Just $ do spawnOn "web.email" $ myTerminal ++ " neomutt"
             }
 
   , Project { projectName      = "conf"
@@ -157,7 +157,7 @@ projects =
 
   , Project { projectName      = "web.irc"
             , projectDirectory = "~/"
-            , projectStartHook = Just $ do spawn $ myTerminal ++ " weechat"
+            , projectStartHook = Just $ do spawnOn "web.irc" $ myTerminal ++ " -o background_opacity=0.9 weechat"
             }
   ]
 
