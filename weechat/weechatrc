@@ -7,21 +7,25 @@
 /secure set libera_password <password>
 
 # defaults
-/set irc.server_default.nicks = "yourname,yourname,yourname2,yourname3,yourname4"
+/set irc.server_default.nicks "yourname,yourname,yourname2,yourname3,yourname4"
 
 # darkscience
-/set irc.server.darkscience.autoconnect = on
+/set irc.server.darkscience.autoconnect on
 
 # libera
-/set irc.server.libera.autoconnect = on
-/set irc.server.libera.autojoin = "#lesswrong,#zsh,#haskell,#lobsters,#archlinux"
-/set irc.server.libera.sasl_password = "${sec.data.libera_password}"
-/set irc.server.libera.sasl_username = "yourname"
+/set irc.server.libera.autoconnect on
+/set irc.server.libera.autojoin "#lesswrong,#zsh,#haskell,#lobsters,#archlinux"
+/set irc.server.libera.sasl_password "${sec.data.libera_password}"
+/set irc.server.libera.sasl_username "yourname"
 
 # styling
-/set buflist.format.buffer_current = "${color:,17}${format_buffer}"
-/set weechat.bar.status.color_bg = 17
-/set weechat.bar.title.color_bg = 17
-/set weechat.color.chat_buffer = 17
-/set weechat.bar.buflist.position = top
-/set weechat.bar.status.position = top
+/set buflist.format.buffer_current "${color:,17}${format_buffer}"
+/set weechat.bar.status.color_bg 17
+/set weechat.bar.title.color_bg 17
+/set weechat.color.chat_buffer 17
+/set weechat.bar.buflist.position top
+/set weechat.bar.status.position top
+
+# filters
+/set irc.look.smart_filter on
+/filter add irc_smart * irc_smart_filter *
