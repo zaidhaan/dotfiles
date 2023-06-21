@@ -9,6 +9,13 @@ alias sbcl='rlwrap sbcl'
 alias ip='ip -color=auto'
 alias ghcs="sr -browser=firefox github -type=code"
 alias config="git --git-dir=$HOME/.dotfiles --work-tree=$XDG_CONFIG_HOME"
+alias rank='sort | uniq -c | sort -nr'
+alias gdb='gdb -q'
+alias f1="awk '{print \$1}'"
+alias f2="awk '{print \$2}'"
+alias f3="awk '{print \$3}'"
+alias flast="awk '{print \$\(NF\)}'"
+alias each="xargs -I{}"
 # config config status.showUntrackedFiles no
 
 [ "$TERM" = "xterm-kitty" ] && {
