@@ -23,3 +23,5 @@
 /set weechat.bar.status.color_bg = 17
 /set weechat.bar.title.color_bg = 17
 /set weechat.color.chat_buffer = 17
+/set weechat.bar.buflist.position = top
+/set weechat.bar.status.position = top
