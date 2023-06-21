@@ -16,6 +16,8 @@ ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 ZSH_HIGHLIGHT_STYLES[comment]='fg=245'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue'
 
 plugins=(
     git
