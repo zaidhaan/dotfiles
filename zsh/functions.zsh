@@ -38,3 +38,14 @@ gls() {
     GIT_PAGER="less -p $1" git log --grep="$1" --pretty=sexy
 }
 
+obliterate() {
+    for item in "$@"; do
+        if [ -f "$item" ]; then
+            shred -v -n1 -z -u "$item"
+        elif [ -d "$item" ]; then
+            find "$item" -type f -exec shred -v -n1 -z -u "$item" {} \;
+            rmdir "$item"
+        fi
+    done
+}
+
