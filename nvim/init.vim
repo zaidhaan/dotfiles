@@ -31,7 +31,6 @@ Plug 'neovim/nvim-lspconfig'
 "Plug 'lyuts/vim-rtags'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'ycm-core/YouCompleteMe'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'mhinz/vim-startify'
 Plug 'rust-lang/rust.vim'
@@ -141,8 +140,6 @@ for _, lsp in ipairs(servers) do
   }
 end
 EOF
-
-nnoremap gd :YcmCompleter GoTo<CR>
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
