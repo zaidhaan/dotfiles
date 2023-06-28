@@ -142,7 +142,7 @@ projects =
 
   , Project { projectName      = "conf"
             , projectDirectory = "~/.config"
-            , projectStartHook = Just $ do spawnOn "conf" myTerminal
+            , projectStartHook = Just $ do spawnOn "conf" $ myTerminal ++ " sh -c 'GIT_DIR=~/.dotfiles zsh'"
             }
 
   , Project { projectName      = "media"
