@@ -423,6 +423,8 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod + left click: set the window to floating mode and move by dragging
     [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
                                        >> windows W.shiftMaster))
+    , ((modm, button3), \w -> focus w >> mouseResizeWindow w
+                                         >> windows W.shiftMaster)
     ]
 
 -- layouts
