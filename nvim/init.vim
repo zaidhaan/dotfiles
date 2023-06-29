@@ -81,6 +81,13 @@ endfunction
 
 nnoremap <Leader>b :call Toggle_transparent_background()<CR>
 
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
 if (has('nvim'))
     let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
