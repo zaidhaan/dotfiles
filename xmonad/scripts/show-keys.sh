@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # TODO: this is ugly, needs to be made better
+# TODO: reconcile with ezconfig changes
 
 # from on https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips
 fgCol=green4
