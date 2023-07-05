@@ -10,6 +10,7 @@ import System.IO (hPutStrLn)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.EZConfig
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
@@ -291,123 +292,127 @@ myXPConfigFuzzy = myXPConfig
       }
 
 -- key bindings
+myEZKeys :: [(String, X())]
+myEZKeys =
+        [ -- terminals
+          ("M-S-<Return>", spawn altTerminal)
+        , ("M-C-<Return>", spawn myTerminal)
+        , ("M-C-S-<Return>", spawn $ altTerminal ++ " -o 'window.opacity=0.9'")
+
+        -- menus
+        , ("M-p", spawn "dmenu_run -i -nb '#191919' -nf '#8f8f8f' -sb '#1a687f' -sf '#dfdfdf' -fn 'terminus-9'")
+
+        -- honestly I've forgotten what these do
+        , ("M-C-S-<Right>", sendMessage $ Move R)
+        , ("M-C-S-<Left>", sendMessage $ Move L)
+        , ("M-C-S-<Up>", sendMessage $ Move U)
+        , ("M-C-S-<Down>", sendMessage $ Move D)
+
+        -- workspace / project navigation
+        , ("M-S-w", TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.greedyView)
+        , ("M-C-w", TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.shift)
+        , ("M-f", switchProjectPrompt myXPConfigFuzzy)
+        , ("M-S-f", shiftToProjectPrompt myXPConfigFuzzy)
+
+        -- display manager operations
+        , ("M-S-l", spawn "dm-tool lock")
+
+        -- config editor
+        , ("M-S-e", spawn "$XDG_CONFIG_HOME/xmonad/scripts/dm-confedit.sh")
+
+        -- tree select
+        , ("M-S-r", treeselectAction tsDefaultConfig)
+
+        -- close focused window
+        , ("M-S-c", kill)
+
+         -- cycle through layouts
+        , ("M-<Space>", sendMessage NextLayout)
+
+        -- resize viewed windows to the correct size
+        , ("M-n", refresh)
+
+        -- window navigation
+        , ("M-d", selectWindow def { bgCol="#022538", cancelKey=xK_Escape } >>= (`whenJust` windows . W.focusWindow))
+        , ("M-S-d", selectWindow def { bgCol="#380217", cancelKey=xK_Escape } >>= (`whenJust` killWindow))
+
+        -- window focusing
+        , ("M-<Tab>", windows W.focusDown)
+        , ("M-j", windows W.focusDown)
+        , ("M-k", windows W.focusUp)
+        , ("M-m", windows W.focusMaster)
+        , ("M-<Return>", windows W.swapMaster)
+
+        -- focused window swapping
+        , ("M-S-j", windows W.swapDown)
+        , ("M-S-k", windows W.swapUp)
+
+        -- focused window resizing
+        , ("M-C-h", sendMessage Shrink)
+        , ("M-C-l", sendMessage Expand)
+        , ("M-C-k", sendMessage MirrorExpand)
+        , ("M-C-j", sendMessage MirrorShrink)
+
+        -- jump to layout
+        , ("M-C-f", sendMessage $ JumpToLayout "Full")
+        , ("M-C-t", sendMessage $ JumpToLayout "Tall")
+        , ("M-C-s", sendMessage $ JumpToLayout "Spiral")
+        , ("M-C-b", sendMessage $ JumpToLayout "Tabbed")
+
+        -- scratchpads
+        , ("M-s", namedScratchpadAction myScratchPads "terminal")
+
+        -- gaps
+        , ("M-u", incScreenWindowSpacing (-2))
+        , ("M-i", incScreenWindowSpacing (2))
+
+        -- workspace navigation
+        , ("M-l", moveTo Next (Not emptyWS))
+        , ("M-h", moveTo Prev (Not emptyWS))
+        , ("M-C-<Space>", toggleWS)
+
+        -- push window back into tiling
+        , ("M-t", withFocused $ windows . W.sink)
+
+        -- control master windows count
+        , ("M-,", sendMessage (IncMasterN 1))
+        , ("M-.", sendMessage (IncMasterN (-1)))
+
+        -- toggle the status bar gap
+        , ("M-b", sendMessage ToggleStruts)
+
+        -- quit xmonad
+        , ("M-S-q", io (exitWith ExitSuccess))
+
+        -- restart xmonad
+        , ("M-C-q", spawn "xmonad --recompile; xmonad --restart")
+        , ("M-q", spawn "xmonad --restart")
+
+        -- show help messagae with key bindings info
+        , ("M-S-/", spawn ("$XDG_CONFIG_HOME/xmonad/scripts/show-keys.sh"))
+
+        -- move cursor to currently focused window
+        , ("M-z", warpToWindow (1%2) (1%2))
+        ]
+
+-- classic key bindings
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-    [ -- terminals
-      ((modm .|. shiftMask, xK_Return), spawn altTerminal)
-    , ((modm .|. controlMask, xK_Return), spawn myTerminal)
-    , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn $ altTerminal ++ " -o 'window.opacity=0.9'")
-
-    -- menus
-    , ((modm,               xK_p     ), spawn "dmenu_run -i -nb '#191919' -nf '#8f8f8f' -sb '#1a687f' -sf '#dfdfdf' -fn 'terminus-9'")
-
-    -- honestly I've forgotten what these do
-    , ((modm .|. controlMask .|. shiftMask, xK_Right), sendMessage $ Move R)
-    , ((modm .|. controlMask .|. shiftMask, xK_Left ), sendMessage $ Move L)
-    , ((modm .|. controlMask .|. shiftMask, xK_Up   ), sendMessage $ Move U)
-    , ((modm .|. controlMask .|. shiftMask, xK_Down ), sendMessage $ Move D)
-
-    -- workspace / project navigation
-    , ((modm .|. shiftMask,   xK_w), TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.greedyView)
-    , ((modm .|. controlMask, xK_w), TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.shift)
-    , ((modm,                 xK_f), switchProjectPrompt myXPConfigFuzzy)
-    , ((modm .|. shiftMask,   xK_f), shiftToProjectPrompt myXPConfigFuzzy)
-
-    -- prompts
-    , ((modm.|. shiftMask, xK_p), submap . M.fromList $
+    [ -- prompts
+      ((modm.|. shiftMask, xK_p), submap . M.fromList $
         [ ((0, xK_m),  manPrompt myXPConfig)
         , ((0, xK_s),  kittySshPrompt myXPConfig')
         , ((0, xK_x),  xmonadPrompt myXPConfig')
         , ((0, xK_l),  layoutPrompt myXPConfig)
         ]
       )
+      --  reset layouts on the current workspace to default
+      , ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
+
 
     -- TODO: make use of these (e.g. for notes?)
     -- launch app (default in ~/)
     -- , ((modm, xK_g), AL.launchApp myXPConfig "code" )
     -- , ((modm, xK_g), AL.launchApp myXPConfig "firefox" )
-
-    -- display manager operations
-    , ((modm .|. shiftMask, xK_l     ), spawn "dm-tool lock")
-
-    -- config editor
-    , ((modm .|. shiftMask, xK_e     ), spawn "$XDG_CONFIG_HOME/xmonad/scripts/dm-confedit.sh")
-
-    -- tree select
-    , ((modm .|. shiftMask, xK_r ), treeselectAction tsDefaultConfig)
-
-    -- close focused window
-    , ((modm .|. shiftMask, xK_c     ), kill)
-
-     -- cycle through layouts
-    , ((modm,               xK_space ), sendMessage NextLayout)
-
-    --  reset layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-
-    -- resize viewed windows to the correct size
-    , ((modm,               xK_n     ), refresh)
-
-    -- window navigation
-    , ((modm,                 xK_d), selectWindow def { bgCol="#022538", cancelKey=xK_Escape } >>= (`whenJust` windows . W.focusWindow))
-    , ((modm .|. shiftMask,   xK_d), selectWindow def { bgCol="#380217", cancelKey=xK_Escape } >>= (`whenJust` killWindow))
-
-    -- window focusing
-    , ((modm,               xK_Tab   ), windows W.focusDown)
-    , ((modm,               xK_j     ), windows W.focusDown)
-    , ((modm,               xK_k     ), windows W.focusUp  )
-    , ((modm,               xK_m     ), windows W.focusMaster  )
-    , ((modm,               xK_Return), windows W.swapMaster)
-
-    -- focused window swapping
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
-
-    -- focused window resizing
-    , ((modm .|. controlMask, xK_h ), sendMessage Shrink)
-    , ((modm .|. controlMask, xK_l ), sendMessage Expand)
-    , ((modm .|. controlMask, xK_k ), sendMessage MirrorExpand)
-    , ((modm .|. controlMask, xK_j ), sendMessage MirrorShrink)
-
-    -- jump to layout
-    , ((modm .|. controlMask, xK_f), sendMessage $ JumpToLayout "Full")
-    , ((modm .|. controlMask, xK_t), sendMessage $ JumpToLayout "Tall")
-    , ((modm .|. controlMask, xK_s), sendMessage $ JumpToLayout "Spiral")
-    , ((modm .|. controlMask, xK_b), sendMessage $ JumpToLayout "Tabbed")
-
-    -- scratchpads
-    , ((modm,               xK_s  ), namedScratchpadAction myScratchPads "terminal")
-
-    -- gaps
-    , ((modm,               xK_u  ), incScreenWindowSpacing (-2))
-    , ((modm,               xK_i  ), incScreenWindowSpacing (2))
-
-    -- workspace navigation
-    , ((modm,                     xK_l), moveTo Next (Not emptyWS))
-    , ((modm,                     xK_h), moveTo Prev (Not emptyWS))
-    , ((modm .|. controlMask, xK_space), toggleWS)
-
-    -- push window back into tiling
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
-
-    -- control master windows count
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
-
-    -- toggle the status bar gap
-    , ((modm              , xK_b     ), sendMessage ToggleStruts)
-
-    -- quit xmonad
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
-
-    -- restart xmonad
-    , ((modm .|. controlMask, xK_q     ), spawn "xmonad --recompile; xmonad --restart")
-    , ((modm                , xK_q     ), spawn "xmonad --restart")
-
-    -- show help messagae with key bindings info
-    , ((modm .|. shiftMask, xK_slash ), spawn ("$XDG_CONFIG_HOME/xmonad/scripts/show-keys.sh"))
-
-    -- move cursor to currently focused window
-    , ((modm,   xK_z     ), warpToWindow (1%2) (1%2))
 
     ]
     ++
@@ -498,13 +503,15 @@ main :: IO ()
 main = do
     xmproc0 <- spawnPipe "xmobar -x 0 $XDG_CONFIG_HOME/xmobar/.xmobarrc"
     xmproc1 <- spawnPipe "xmobar -x 1 $XDG_CONFIG_HOME/xmobar/.xmobarrc"
-    xmonad $ dynamicProjects projects $ ewmh $ docks defaults {
-        logHook = dynamicLogWithPP $ myPP {
-            ppOutput = \x -> hPutStrLn xmproc0 x
-                      >> hPutStrLn xmproc1 x,
-            ppOrder  = \(ws:l:t:_)   -> [ws]
+    xmonad $ dynamicProjects projects $ ewmh $ docks defaults
+        { logHook = dynamicLogWithPP $ myPP
+            { ppOutput = \x -> hPutStrLn xmproc0 x
+                            >> hPutStrLn xmproc1 x
+            , ppOrder  = \(ws:l:t:_)   -> [ws]
+            }
         }
-    }
+        `additionalKeysP`
+        myEZKeys
 
 defaults = def {
       -- simple stuff
