@@ -25,6 +25,7 @@ import XMonad.Actions.Warp
 import XMonad.Actions.Submap
 import XMonad.Actions.DynamicProjects
 import XMonad.Actions.SpawnOn
+import XMonad.Actions.EasyMotion (selectWindow, EasyMotionConfig(..))
 import qualified XMonad.Actions.TreeSelect as TS
 
 import Zai.Xmonad.KittySsh (kittySshPrompt)
@@ -305,7 +306,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask .|. shiftMask, xK_Up   ), sendMessage $ Move U)
     , ((modm .|. controlMask .|. shiftMask, xK_Down ), sendMessage $ Move D)
 
-    -- experimental
+    -- workspace / project navigation
     , ((modm .|. shiftMask,   xK_w), TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.greedyView)
     , ((modm .|. controlMask, xK_w), TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.shift)
     , ((modm,                 xK_f), switchProjectPrompt myXPConfigFuzzy)
@@ -345,6 +346,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- resize viewed windows to the correct size
     , ((modm,               xK_n     ), refresh)
+
+    -- window navigation
+    , ((modm,                 xK_d), selectWindow def { bgCol="#022538", cancelKey=xK_Escape } >>= (`whenJust` windows . W.focusWindow))
+    , ((modm .|. shiftMask,   xK_d), selectWindow def { bgCol="#380217", cancelKey=xK_Escape } >>= (`whenJust` killWindow))
 
     -- window focusing
     , ((modm,               xK_Tab   ), windows W.focusDown)
