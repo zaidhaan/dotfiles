@@ -12,7 +12,9 @@
 
 [alias]
     # e.g. M file.txt
-    s = status -s
+    s = status --short
+    # e.g. ## master...origin/master [ahead 1]
+    ss = status --short --branch
 
     # e.g. * 312f56 foo bar baz
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
