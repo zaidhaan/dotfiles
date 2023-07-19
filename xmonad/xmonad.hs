@@ -297,6 +297,8 @@ myEZKeys =
         [ -- terminals
           ("M-S-<Return>", spawn altTerminal)
         , ("M-C-<Return>", spawn myTerminal)
+        -- hack-ish way to fire up an "incognito" terminal
+        , ("M-C-\\", spawn $ myTerminal ++ " zsh -c 'export HISTFILE=\"$(date +\"/tmp/%Y-%m-%d-%H%M%S.histfile\")\" ; zsh -i ; rm $HISTFILE'")
         , ("M-C-S-<Return>", spawn $ altTerminal ++ " -o 'window.opacity=0.9'")
 
         -- menus
