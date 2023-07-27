@@ -108,6 +108,7 @@ myWorkspaces :: Forest String
 myWorkspaces = [ Node "term" []
                , Node "web"
                    [ Node "private" [] -- firefox private window
+                   , Node "devtools" []
                    , Node "chat"    []
                    , Node "email"   [] -- neomutt
                    , Node "irc"   [] -- weechat
@@ -155,6 +156,11 @@ projects =
   , Project { projectName      = "hack"
             , projectDirectory = "~/dev/hacks"
             , projectStartHook = Just $ do spawnOn "hack" myTerminal
+            }
+
+  , Project { projectName      = "code"
+            , projectDirectory = "~/dev/"
+            , projectStartHook = Just $ do spawnOn "code" "code"
             }
 
   , Project { projectName      = "web.irc"
