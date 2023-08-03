@@ -55,6 +55,9 @@
     # staged changes
     staged = diff --cached
 
+    stl = stash list
+    stlp = stash list --patch
+
     # rebase nth latest commits
     reb = !" r() { git rebase -i HEAD~$1; }; r"
 
