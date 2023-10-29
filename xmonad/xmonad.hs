@@ -346,6 +346,7 @@ myEZKeys =
 
         -- window focusing
         , ("M-<Tab>", windows W.focusDown)
+        , ("M-S-<Tab>", windows W.focusUp)
         , ("M-j", windows W.focusDown)
         , ("M-k", windows W.focusUp)
         , ("M-m", windows W.focusMaster)
