@@ -18,10 +18,6 @@ alias flast="awk '{print \$\(NF\)}'"
 alias each="xargs -I{}"
 # config config status.showUntrackedFiles no
 
-[[ "$TERM_PROGRAM" == "vscode" ]] && {
-    alias rg="rg --no-heading"
-}
-
 [ "$TERM" = "xterm-kitty" ] && {
     alias icat="kitty +kitten icat --align left"
     alias hg="kitty +kitten hyperlinked_grep"
