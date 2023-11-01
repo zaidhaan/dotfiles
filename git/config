@@ -31,12 +31,14 @@
 
     # back / switch
     b = switch -
+    next = "!f() { git checkout $(git log --reverse --ancestry-path HEAD..master --format='%H' | head -n1); }; f"
+    prev = checkout HEAD~1
 
     # shallow clone
     sc = clone --depth=1
 
     # use tmux to view diff on left and commit on right
-    adhd = ! gitadhd $GIT_DIR $GIT_WORK_TREE
+    adhd = ! gitadhd
 
     # add
     a = add

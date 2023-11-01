@@ -8,7 +8,7 @@ alias incognito=" unset HISTFILE"
 alias sbcl='rlwrap sbcl'
 alias ip='ip -color=auto'
 alias ghcs="sr -browser=firefox github -type=code"
-alias config="git --git-dir=$HOME/.dotfiles --work-tree=$XDG_CONFIG_HOME"
+alias config="GIT_DIR=$HOME/.dotfiles GIT_WORK_TREE=$XDG_CONFIG_HOME git"
 alias rank='sort | uniq -c | sort -nr'
 alias gdb='gdb -q'
 alias f1="awk '{print \$1}'"
