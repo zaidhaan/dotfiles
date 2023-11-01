@@ -23,6 +23,7 @@ zshrc=$XDG_CONFIG_HOME/zsh/.zshrc
 zsh_history=$HOME/.zsh_history
 xbindkeys=$XDG_CONFIG_HOME/xbindkeys/config
 xinit=$HOME/.xinitrc
+git=$XDG_CONFIG_HOME/git/config
 nvim [init.vim]=$HOME/.config/nvim/init.vim
 picom=$HOME/.config/picom/picom.conf
 dunst=$HOME/.config/dunst/dunstrc
