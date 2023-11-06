@@ -23,3 +23,14 @@ bindkey '^X^T' fzf-git-files
 
 eval "$(github-copilot-cli alias -- "$0")"
 
+export JIRA_API_TOKEN=$(<$ZDOTDIR/../.jira-api-token)
+
+export PATH="$PATH:$(go env GOBIN):$(go env GOPATH)/bin"
+export PATH="$HOME/.cabal/bin:$PATH"
+
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
