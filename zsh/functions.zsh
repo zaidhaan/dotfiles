@@ -49,3 +49,9 @@ obliterate() {
     done
 }
 
+mem() {
+    # NOTE: s/comm/args/ for verbosity
+    ps -p ${=${:-"${$(pidof $@)// / -p }"}} -o rss,pid,euser,comm:100 --sort %mem | awk '{printf $1/1024 "MB"; $1=""; print }'
+}
+compdef mem=pidof
+
