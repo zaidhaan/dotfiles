@@ -38,6 +38,10 @@ gls() {
     GIT_PAGER="less -p $1" git log --grep="$1" --pretty=sexy
 }
 
+zman() {
+  PAGER="less -g -s '+/^       "$1"'" man zshall
+}
+
 obliterate() {
     for item in "$@"; do
         if [ -f "$item" ]; then
