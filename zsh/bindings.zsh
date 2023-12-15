@@ -9,6 +9,13 @@ bindkey -a ds delete-surround
 bindkey -a ys add-surround
 bindkey -M visual S add-surround
 
+# menu navigation
+zmodload -i zsh/complist
+bindkey -M menuselect '^h' vi-backward-char
+bindkey -M menuselect '^j' vi-down-line-or-history
+bindkey -M menuselect '^k' vi-up-line-or-history
+bindkey -M menuselect '^l' vi-forward-char
+
 # history navigation
 bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
@@ -27,6 +34,13 @@ bindkey '^Xa' _expand_alias
 # reverse menu complete (shift+tab equivalent)
 # ctrl+shift+I, from `showkey -a`. probably not portable
 bindkey -M menuselect '^[[105;6u' reverse-menu-complete
+
+extended-magic-space() {
+  [[ $LBUFFER =~ ' [A-Z0-9]+$' ]] && zle _expand_alias
+  zle magic-space
+}
+zle -N extended-magic-space
+bindkey ' ' extended-magic-space
 
 # jump to nth arg
 after-nth-word() {
@@ -165,4 +179,15 @@ _sort-by-size() {
 }
 zle -N _sort-by-size
 bindkey '^[e^Is' _sort-by-size
+
+autoload -Uz run-help
+(( ${+aliases[run-help]} )) && unalias run-help
+alias help=run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-ip
+autoload -Uz run-help-openssl
+autoload -Uz run-help-p4
+autoload -Uz run-help-sudo
+autoload -Uz run-help-svk
+autoload -Uz run-help-svn
 

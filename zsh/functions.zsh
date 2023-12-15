@@ -39,7 +39,7 @@ gls() {
 }
 
 zman() {
-  PAGER="less -g -s '+/^       "$1"'" man zshall
+    PAGER="less -g -s '+/^       "$1"'" man zshall
 }
 
 obliterate() {

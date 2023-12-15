@@ -18,6 +18,18 @@ alias flast="awk '{print \$\(NF\)}'"
 alias each="xargs -I{}"
 # config config status.showUntrackedFiles no
 
+alias -g L='| less'
+alias -g G='| grep'
+alias -g X='| xargs'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g RK='| sort | uniq -c | sort -nr'
+alias -g CP='| xclip -sel c'
+alias -g F1="| awk '{print \$1}'"
+alias -g F2="| awk '{print \$2}'"
+alias -g F3="| awk '{print \$3}'"
+alias -g FL="| awk '{print \$(NF)}'"
+
 [ "$TERM" = "xterm-kitty" ] && {
     alias icat="kitty +kitten icat --align left"
     alias hg="kitty +kitten hyperlinked_grep"
