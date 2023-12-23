@@ -1,26 +1,26 @@
 #!/usr/bin/env zsh
 
 if [[ $# -eq 0 ]]; then
-    echo "usage: ${0:t} <pid>"
+    echo "usage: ${0:t} <pidlist>"
     exit 1
 fi
 
-if ! kill -0 $1 &>/dev/null; then
-    echo "error: invalid process ID"
+if ! kill -0 "$@" &>/dev/null; then
+    echo "error: invalid process ID(s)"
     exit 1
 fi
 
 # $1= pid
 print_vmrss() {
-    res=(${(@s: :):-$(ps -p $1 -o comm=,pid=,rss=)})
-    res[3]=$((res[3] / 1024.0))
-    printf '%s(%s): %s MB\n' ${res[@]}
-    REPLY=res[3]
+    res=(${(s: :):-$(ps -p $1 -o pid=,rss=,comm=)})
+    res[2]=$((res[2] / 1024.0))
+    printf '%s(%s): %s MB\n' "${res[3,-1]:-}" ${res[1]:-$1} ${res[2]:-0}
+    REPLY=res[2]
 }
 
 # $1= idx
 print_spc() {
-    printf "${(pl:$(($1*2)):: :)}"
+    printf "${(l:$(($1*2)):: :)}"
 }
 
 # $1= idx, $2=pid
@@ -35,7 +35,9 @@ run() {
 
 idx=0
 total=0
-pid=$1
-run $idx $pid
+pids=("$@")
+for pid in $pids; do
+    run $idx $pid
+done
 printf 'total: %s MB\n' $total
 
