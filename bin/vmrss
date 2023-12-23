@@ -5,7 +5,7 @@ if [[ $# -eq 0 ]]; then
     exit 1
 fi
 
-if ! ps -p $1 &>/dev/null; then
+if ! kill -0 $1 &>/dev/null; then
     echo "error: invalid process ID"
     exit 1
 fi
