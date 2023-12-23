@@ -1,0 +1,36 @@
+#!/usr/bin/env zsh
+
+if [[ $# -eq 0 ]]; then
+    echo "usage: ${0:t} <pid>"
+    exit 1
+fi
+
+# $1= pid
+print_vmrss() {
+    res=(${(@s: :):-$(ps -p $1 -o comm=,pid=,rss=)})
+    res[3]=$((res[3] / 1024.0))
+    printf '%s(%s): %s MB\n' ${res[@]}
+    REPLY=res[3]
+}
+
+# $1= idx
+print_spc() {
+    printf "${(pl:$(($1*2)):: :)}"
+}
+
+# $1= idx, $2=pid
+run() {
+    print_spc $1
+    print_vmrss $2
+    total=$((total + REPLY))
+    for child in $(pgrep -P $2); do
+        run $(($1+1)) $child
+    done
+}
+
+idx=0
+total=0
+pid=$1
+run $idx $pid
+printf 'total: %s MB\n' $total
+
