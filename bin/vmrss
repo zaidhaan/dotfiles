@@ -12,7 +12,7 @@ fi
 
 # $1= pid
 print_vmrss() {
-    res=(${(s: :):-$(ps -p $1 -o pid=,rss=,comm=)})
+    : ${(A)res::=${(s: :)$(ps -p $1 -o pid=,rss=,comm=)}}
     res[2]=$((res[2] / 1024.0))
     printf '%s(%s): %s MB\n' "${res[3,-1]:-}" ${res[1]:-$1} ${res[2]:-0}
     REPLY=res[2]
