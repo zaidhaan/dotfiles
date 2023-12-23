@@ -5,6 +5,11 @@ if [[ $# -eq 0 ]]; then
     exit 1
 fi
 
+if ! ps -p $1 &>/dev/null; then
+    echo "error: invalid process ID"
+    exit 1
+fi
+
 # $1= pid
 print_vmrss() {
     res=(${(@s: :):-$(ps -p $1 -o comm=,pid=,rss=)})
