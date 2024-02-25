@@ -34,7 +34,7 @@ import Zai.Xmonad.KittySsh (kittySshPrompt)
 
 -- testing stuff out
 import XMonad.Layout.LayoutCombinators
-import XMonad.Layout.Named
+import XMonad.Layout.Renamed
 import XMonad.Layout.Combo
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.TwoPane
